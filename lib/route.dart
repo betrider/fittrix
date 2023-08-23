@@ -1,20 +1,26 @@
 import 'package:fittrix/providers/providers.dart';
-import 'package:fittrix/screens/a_screen.dart';
-import 'package:fittrix/screens/b_screen.dart';
-import 'package:fittrix/screens/c_screen.dart';
+import 'package:fittrix/screens/home_screen.dart';
+import 'package:fittrix/screens/record_screen.dart';
+import 'package:fittrix/screens/auth_screen.dart';
 import 'package:fittrix/screens/detail_screen.dart';
 import 'package:fittrix/screens/main_screen.dart';
+import 'package:fittrix/screens/recording_screen.dart';
+import 'package:fittrix/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey(debugLabel: 'root');
-final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey(debugLabel: 'shell');
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey(debugLabel: 'root');
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey(debugLabel: 'shell');
 
 class Routes {
-  static const String a = '/a';
-  static const String b = '/b';
-  static const String c = '/c';
+  static const String home = '/home';
+
+  static const String recording = '/recording';
+  static const String record = '/record';
+  static const String auth = '/auth';
 }
 
 final goRouterProvider = Provider<GoRouter>(
@@ -23,7 +29,7 @@ final goRouterProvider = Provider<GoRouter>(
 
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: Routes.a,
+      initialLocation: Routes.recording,
       refreshListenable: router,
       debugLogDiagnostics: true,
       routes: router._routes,
@@ -48,6 +54,12 @@ class RouterNotifier extends ChangeNotifier {
   }
 
   Future<String?> _redirect(BuildContext context, GoRouterState state) async {
+    var authStatus = _ref.read(authProvider).status;
+
+    if (authStatus == AuthState.unauthorized && state.fullPath != Routes.auth) {
+      return Routes.home;
+    }
+
     return null;
   }
 
@@ -59,47 +71,46 @@ class RouterNotifier extends ChangeNotifier {
           },
           routes: <RouteBase>[
             GoRoute(
-              path: '/a',
+              path: Routes.home,
               pageBuilder: (context, state) {
-                return const CupertinoPage(child: ScreenA());
+                return const CupertinoPage(child: HomeScreen());
+              },
+            ),
+            GoRoute(
+              path: Routes.recording,
+              pageBuilder: (context, state) {
+                return const CupertinoPage(child: RecordingScreen());
               },
               routes: <RouteBase>[
                 GoRoute(
                   path: 'details',
                   pageBuilder: (context, state) {
-                    return const CupertinoPage(child: DetailsScreen(label: 'C'));
+                    return const CupertinoPage(
+                        child: DetailsScreen(label: 'C'));
                   },
                 ),
               ],
             ),
             GoRoute(
-              path: '/b',
+              path: Routes.record,
               pageBuilder: (context, state) {
-                return const CupertinoPage(child: ScreenB());
+                return const CupertinoPage(child: RecordScreen());
               },
               routes: <RouteBase>[
                 GoRoute(
                   path: 'details',
-                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) {
-                    return const CupertinoPage(child: DetailsScreen(label: 'C'));
+                    return const CupertinoPage(
+                        child: DetailsScreen(label: 'C'));
                   },
                 ),
               ],
             ),
             GoRoute(
-              path: '/c',
+              path: Routes.auth,
               pageBuilder: (context, state) {
-                return const CupertinoPage(child: ScreenC());
+                return const CupertinoPage(child: AuthScreen());
               },
-              routes: <RouteBase>[
-                GoRoute(
-                  path: 'details',
-                  pageBuilder: (context, state) {
-                    return const CupertinoPage(child: DetailsScreen(label: 'C'));
-                  },
-                ),
-              ],
             ),
           ],
         ),

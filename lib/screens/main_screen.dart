@@ -1,3 +1,4 @@
+import 'package:fittrix/route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,21 +12,24 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'A Screen',
+            icon: Icon(Icons.create),
+            label: '운동 기록 하기',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'B Screen',
+            icon: Icon(Icons.menu_book),
+            label: '운동 기록 보기',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notification_important_rounded),
-            label: 'C Screen',
+            icon: Icon(Icons.person),
+            label: '로그인',
           ),
         ],
         currentIndex: _calculateSelectedIndex(context),
@@ -36,13 +40,13 @@ class MainScreen extends StatelessWidget {
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.toString();
-    if (location.startsWith('/a')) {
+    if (location.startsWith(Routes.recording)) {
       return 0;
     }
-    if (location.startsWith('/b')) {
+    if (location.startsWith(Routes.record)) {
       return 1;
     }
-    if (location.startsWith('/c')) {
+    if (location.startsWith(Routes.auth)) {
       return 2;
     }
     return 0;
@@ -51,13 +55,13 @@ class MainScreen extends StatelessWidget {
   void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
-        GoRouter.of(context).go('/a');
+        GoRouter.of(context).go(Routes.recording);
         break;
       case 1:
-        GoRouter.of(context).go('/b');
+        GoRouter.of(context).go(Routes.record);
         break;
       case 2:
-        GoRouter.of(context).go('/c');
+        GoRouter.of(context).go(Routes.auth);
         break;
     }
   }

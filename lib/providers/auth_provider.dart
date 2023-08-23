@@ -38,29 +38,25 @@ class AuthStates<T> extends Equatable {
   final AuthState? previous;
   final AuthState status;
   final T? data;
-  final String? message;
 
   const AuthStates({
     this.previous,
     required this.status,
     this.data,
-    this.message,
   });
 
   @override
-  List<Object?> get props => [previous, status, data, message];
+  List<Object?> get props => [previous, status, data];
 
   AuthStates copyWith({
     AuthState? previous,
     AuthState? status,
     T? data,
-    String? message,
   }) {
     return AuthStates(
       previous: previous ?? this.previous,
       status: status ?? this.status,
       data: data ?? this.data,
-      message: message ?? this.message,
     );
   }
 }

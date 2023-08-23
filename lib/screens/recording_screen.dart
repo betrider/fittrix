@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ScreenA extends StatelessWidget {
-  const ScreenA({super.key});
+class RecordingScreen extends StatelessWidget {
+  const RecordingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
