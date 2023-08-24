@@ -47,11 +47,11 @@ class FakeRecordRepository implements RecordRepository {
   Future<List<Record>> searchRecords() async {
     print('운동기록 조회');
     return [
-      Record(title: 'title1', content: 'content1'),
-      Record(title: 'title2', content: 'content2'),
-      Record(title: 'title3', content: 'content3'),
-      Record(title: 'title4', content: 'content4'),
-      Record(title: 'title5', content: 'content5'),
+      Record(createdAt: DateTime(2023, 4, 7, 12, 30), content: 'content1'),
+      Record(createdAt: DateTime(2023, 5, 7, 8, 30), content: 'content2'),
+      Record(createdAt: DateTime(2023, 6, 7, 13, 30), content: 'content3'),
+      Record(createdAt: DateTime(2023, 7, 7, 7, 30), content: 'content4'),
+      Record(createdAt: DateTime(2023, 8, 7, 20, 30), content: 'content5'),
     ];
   }
 }
@@ -59,12 +59,12 @@ class FakeRecordRepository implements RecordRepository {
 /// 운동 기록
 class Record {
   /// 제목
-  final String title;
+  final DateTime createdAt;
   /// 내용
   final String content;
 
   Record({
-    required this.title,
+    required this.createdAt,
     required this.content,
   });
 }

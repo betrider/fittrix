@@ -38,8 +38,9 @@ dependencies:
   go_router: ^10.1.0
   flutter_riverpod: ^2.3.7
   equatable: ^2.0.5
-  popover: ^0.2.8+2
   video_player: ^2.7.0
+  cached_network_image: ^3.2.3
+  fluttertoast: ^8.2.2
 
 dev_dependencies:
   flutter_test:

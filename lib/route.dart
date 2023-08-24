@@ -3,6 +3,7 @@ import 'package:fittrix/screens/auth_screen.dart';
 import 'package:fittrix/screens/home_screen.dart';
 import 'package:fittrix/screens/main_screen.dart';
 import 'package:fittrix/screens/record_screen.dart';
+import 'package:fittrix/screens/record_view_screen.dart';
 import 'package:fittrix/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,8 +15,11 @@ final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey(debugLabel: 'shel
 class Routes {
   // 1 depth
   static const String home = '/home';
-  static const String record = '/record';
+  static const String recordView = '/recordView';
   static const String auth = '/auth';
+
+  // 2 depth
+  static const String record = 'record/:type';
 }
 
 final goRouterProvider = Provider<GoRouter>(
@@ -51,7 +55,7 @@ class RouterNotifier extends ChangeNotifier {
   Future<String?> _redirect(BuildContext context, GoRouterState state) async {
     var authStatus = _ref.read(authProvider).status;
 
-    if (authStatus == AuthState.unauthorized && state.fullPath == Routes.record) {
+    if (authStatus == AuthState.unauthorized && state.fullPath == Routes.recordView) {
       return Routes.auth;
     }
 
@@ -70,11 +74,24 @@ class RouterNotifier extends ChangeNotifier {
               pageBuilder: (context, state) {
                 return const CupertinoPage(child: HomeScreen());
               },
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: Routes.record,
+                  pageBuilder: (context, state) {
+                    return CupertinoPage(
+                      child: RecordScreen(
+                        fitnessType: FitnessType.strToEnum(state.pathParameters['type']!),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
             GoRoute(
-              path: Routes.record,
+              path: Routes.recordView,
               pageBuilder: (context, state) {
-                return const CupertinoPage(child: RecordScreen());
+                return const CupertinoPage(child: RecordViewScreen());
               },
             ),
             GoRoute(
