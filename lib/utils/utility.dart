@@ -42,8 +42,7 @@ Future<void> customShowMenu({
                   child: Container(
                     width: menuWidth,
                     height: menuHeight,
-                    decoration:
-                        menuBoxDecoration ?? BoxDecoration(color: Colors.grey[200]),
+                    decoration: menuBoxDecoration ?? BoxDecoration(color: Colors.grey[200]),
                     child: child,
                   ),
                 ),
@@ -100,5 +99,16 @@ Future<bool?> customShowToast({
     backgroundColor: backgroundColor,
     textColor: textColor,
     fontSize: fontSize,
+  );
+}
+
+void customShowSnackbar({
+  required BuildContext context,
+  required String content,
+}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(content),
+    ),
   );
 }

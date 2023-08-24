@@ -1,3 +1,4 @@
+import 'package:fittrix/utils/enums.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// 운동기록 Repository Provider
@@ -47,11 +48,11 @@ class FakeRecordRepository implements RecordRepository {
   Future<List<Record>> searchRecords() async {
     print('운동기록 조회');
     return [
-      Record(createdAt: DateTime(2023, 4, 7, 12, 30), content: 'content1'),
-      Record(createdAt: DateTime(2023, 5, 7, 8, 30), content: 'content2'),
-      Record(createdAt: DateTime(2023, 6, 7, 13, 30), content: 'content3'),
-      Record(createdAt: DateTime(2023, 7, 7, 7, 30), content: 'content4'),
-      Record(createdAt: DateTime(2023, 8, 7, 20, 30), content: 'content5'),
+      Record(fitnessType: FitnessType.legRaise, createdAt: DateTime(2023, 4, 7, 12, 30), content: 'content1 content1 content1 content1 content1 content1 content1 content1 content1 content1 content1 content1 content1 content1 content1'),
+      Record(fitnessType: FitnessType.lunge, createdAt: DateTime(2023, 5, 7, 8, 30), content: 'content2 content2 content2 content2 content2 content2 content2 content2 content2 content2'),
+      Record(fitnessType: FitnessType.squat, createdAt: DateTime(2023, 6, 7, 13, 30), content: 'content3 content3 content3 content3'),
+      Record(fitnessType: FitnessType.pushUp, createdAt: DateTime(2023, 7, 7, 7, 30), content: 'content4 content4 content4 content4 content4 content4 content4 content4 content4 content4 content4 content4'),
+      Record(fitnessType: FitnessType.legRaise, createdAt: DateTime(2023, 8, 7, 20, 30), content: 'content5'),
     ];
   }
 }
@@ -60,12 +61,15 @@ class FakeRecordRepository implements RecordRepository {
 class Record {
   /// 아이디
   late final String id;
+  /// 타입
+  final FitnessType fitnessType;
   /// 제목
   final DateTime createdAt;
   /// 내용
   final String content;
 
   Record({
+    required this.fitnessType,
     required this.createdAt,
     required this.content,
   }){

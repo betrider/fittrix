@@ -15,7 +15,7 @@ class RecordNotifier extends AsyncNotifier<List<Record>> {
     return ref.read(recordRepositoryProvider).searchRecords();
   }
 
-  void addRecord(Record record) async{
+  Future<void> addRecord(Record record) async{
     state = const AsyncValue.loading();
     try {
       var result = await ref.read(recordRepositoryProvider).addRecord(record);

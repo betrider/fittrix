@@ -20,11 +20,31 @@ class RecordViewScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(8),
           child: result.when(
             data: (data) {
-              return ListView.builder(
+              return ListView.separated(
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   var record = data[index];
-                  return Text(record.content);
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(record.createdAt.toFullDateTimeString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
+                        const SizedBox(height: 8),
+                        Text('운동 종목 : ${record.fitnessType.toString()}', style: const TextStyle(fontSize: 16)),
+                        const SizedBox(height: 8),
+                        Text(record.content),
+                      ],
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 16);
                 },
               );
             },
