@@ -74,6 +74,12 @@ class RouterNotifier extends ChangeNotifier {
               pageBuilder: (context, state) {
                 return const CupertinoPage(child: HomeScreen());
               },
+            ),
+            GoRoute(
+              path: Routes.recordView,
+              pageBuilder: (context, state) {
+                return const CupertinoPage(child: RecordViewScreen());
+              },
               routes: [
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
@@ -89,16 +95,23 @@ class RouterNotifier extends ChangeNotifier {
               ],
             ),
             GoRoute(
-              path: Routes.recordView,
-              pageBuilder: (context, state) {
-                return const CupertinoPage(child: RecordViewScreen());
-              },
-            ),
-            GoRoute(
               path: Routes.auth,
               pageBuilder: (context, state) {
                 return const CupertinoPage(child: AuthScreen());
               },
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: Routes.record,
+                  pageBuilder: (context, state) {
+                    return CupertinoPage(
+                      child: RecordScreen(
+                        fitnessType: FitnessType.strToEnum(state.pathParameters['type']!),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),

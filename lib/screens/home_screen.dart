@@ -64,13 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.black,
-        child: Center(
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: _isPlayingFirstVideo ? VideoPlayer(_controller1) : VideoPlayer(_controller2),
-          ),
+      body: Center(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: _isPlayingFirstVideo ? VideoPlayer(_controller1) : VideoPlayer(_controller2),
         ),
       ),
     );

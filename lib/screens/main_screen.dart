@@ -16,29 +16,27 @@ class MainScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SafeArea(
-      child: WillPopScope(
-        onWillPop: onBackPressed,
-        child: Scaffold(
-          body: child,
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.create),
-                label: '운동 기록 하기',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.menu_book),
-                label: '운동 기록 보기',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: '로그인',
-              ),
-            ],
-            currentIndex: _calculateSelectedIndex(context),
-            onTap: (int idx) => _onItemTapped(idx, context, ref),
-          ),
+    return WillPopScope(
+      onWillPop: onBackPressed,
+      child: Scaffold(
+        body: child,
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.create),
+              label: '운동 기록 하기',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu_book),
+              label: '운동 기록 보기',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: '로그인',
+            ),
+          ],
+          currentIndex: _calculateSelectedIndex(context),
+          onTap: (int idx) => _onItemTapped(idx, context, ref),
         ),
       ),
     );
@@ -61,12 +59,6 @@ class MainScreen extends ConsumerWidget {
   void _onItemTapped(int index, BuildContext context, WidgetRef ref) async {
     switch (index) {
       case 0:
-        final String location = GoRouterState.of(context).uri.toString();
-        if (location.startsWith(Routes.home) == false) {
-          GoRouter.of(context).go(Routes.home);
-          return;
-        }
-
         final authStatus = ref.read(authProvider).status;
         if (authStatus == AuthState.authorized) {
           await customShowMenu(

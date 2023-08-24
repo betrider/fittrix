@@ -58,6 +58,8 @@ class FakeRecordRepository implements RecordRepository {
 
 /// 운동 기록
 class Record {
+  /// 아이디
+  late final String id;
   /// 제목
   final DateTime createdAt;
   /// 내용
@@ -66,5 +68,7 @@ class Record {
   Record({
     required this.createdAt,
     required this.content,
-  });
+  }){
+    id = createdAt.toString();
+  }
 }
