@@ -16,8 +16,6 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.black,
-        selectedItemColor: Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.create),
@@ -40,7 +38,7 @@ class MainScreen extends StatelessWidget {
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.toString();
-    if (location.startsWith(Routes.recording)) {
+    if (location.startsWith(Routes.home)) {
       return 0;
     }
     if (location.startsWith(Routes.record)) {
@@ -55,7 +53,7 @@ class MainScreen extends StatelessWidget {
   void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
-        GoRouter.of(context).go(Routes.recording);
+        GoRouter.of(context).go(Routes.home);
         break;
       case 1:
         GoRouter.of(context).go(Routes.record);

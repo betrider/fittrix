@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fittrix/repositories/auth_repository.dart';
 import 'package:fittrix/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,18 +16,17 @@ class AuthNotifier extends Notifier<AuthStates> {
     return const AuthStates(status: AuthState.unauthorized);
   }
 
-  Future<void> login() async {
+  Future<void> signIn(String id) async {
     try {
-      // 로그인 로직을 구현합니다.
-      state = AuthStates(previous: state.status, status: AuthState.authorized, data: null);
+      var result = await ref.read(authRepositoryProvider).signIn(id);
+      state = AuthStates(previous: state.status, status: AuthState.authorized, data: result);
     } catch (e) {
       state = AuthStates(previous: state.status, status: AuthState.unauthorized, data: null);
     }
   }
 
-  Future<void> logout() async {
+  Future<void> signOut() async {
     try {
-      // 로그아웃 로직을 구현합니다.
       state = const AuthStates(status: AuthState.unauthorized, data: null);
     } catch (e) {
       state = const AuthStates(status: AuthState.unauthorized, data: null);
