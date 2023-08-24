@@ -1,8 +1,12 @@
+import 'package:fittrix/providers/auth_provider.dart';
 import 'package:fittrix/route.dart';
+import 'package:fittrix/utils/enums.dart';
+import 'package:fittrix/utils/utility.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends ConsumerWidget {
   const MainScreen({
     required this.child,
     super.key,
@@ -11,8 +15,7 @@ class MainScreen extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
@@ -31,7 +34,7 @@ class MainScreen extends StatelessWidget {
           ),
         ],
         currentIndex: _calculateSelectedIndex(context),
-        onTap: (int idx) => _onItemTapped(idx, context),
+        onTap: (int idx) => _onItemTapped(idx, context, ref),
       ),
     );
   }
@@ -50,10 +53,41 @@ class MainScreen extends StatelessWidget {
     return 0;
   }
 
-  void _onItemTapped(int index, BuildContext context) {
+  void _onItemTapped(int index, BuildContext context, WidgetRef ref) async {
     switch (index) {
       case 0:
-        GoRouter.of(context).go(Routes.home);
+        final String location = GoRouterState.of(context).uri.toString();
+        if (location.startsWith(Routes.home) == false) {
+          GoRouter.of(context).go(Routes.home);
+          return;
+        }
+
+        final authStatus = ref.read(authProvider).status;
+        if (authStatus == AuthState.authorized) {
+          await tsShowMenu(
+            context: context,
+            menuWidth: 150,
+            bottomOffset: kBottomNavigationBarHeight + 16,
+            leftOffset: 16,
+            child: Container(
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(title: Text('런지')),
+                  Divider(height: 1),
+                  ListTile(title: Text('스쿼트')),
+                  Divider(height: 1),
+                  ListTile(title: Text('푸시업')),
+                  Divider(height: 1),
+                  ListTile(title: Text('레그레이즈')),
+                ],
+              ),
+            ),
+          );
+        } else {
+          GoRouter.of(context).go(Routes.home);
+        }
         break;
       case 1:
         GoRouter.of(context).go(Routes.record);
