@@ -40,7 +40,7 @@ Future<void> tsShowMenu({
                     width: menuWidth,
                     height: menuHeight,
                     decoration:
-                        menuBoxDecoration ?? BoxDecoration(color: Theme.of(context).primaryColor.withOpacity(0.1)),
+                        menuBoxDecoration ?? BoxDecoration(color: Colors.grey[200]),
                     child: child,
                   ),
                 ),
