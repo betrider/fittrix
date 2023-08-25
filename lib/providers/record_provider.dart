@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fittrix/repositories/record_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// 운동 기록 프로바이더
 final recordNotifierProvider = AsyncNotifierProvider<RecordNotifier, List<Record>>(RecordNotifier.new);
 
 class RecordNotifier extends AsyncNotifier<List<Record>> {
@@ -11,10 +12,12 @@ class RecordNotifier extends AsyncNotifier<List<Record>> {
     return _fetchRecords();
   }
 
+  /// 운동 기록 조회
   Future<List<Record>> _fetchRecords() {
     return ref.read(recordRepositoryProvider).searchRecords();
   }
 
+  /// 운동 기록 추가
   Future<void> addRecord(Record record) async{
     state = const AsyncValue.loading();
     try {
@@ -25,6 +28,7 @@ class RecordNotifier extends AsyncNotifier<List<Record>> {
     }
   }
 
+  /// 운동 기록 삭제
   Future<void> deleteRecord(Record deleteRecord) async{
     state = const AsyncValue.loading();
     try {

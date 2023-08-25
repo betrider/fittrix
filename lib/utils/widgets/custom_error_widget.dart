@@ -8,7 +8,9 @@ class CustomErrorWidget extends ConsumerWidget {
     required this.onPressed,
   });
 
+  /// 오류 내용
   final String? errorText;
+  /// 클릭 이벤트
   final VoidCallback onPressed;
 
   @override

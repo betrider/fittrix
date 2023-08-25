@@ -10,8 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late VideoPlayerController _controller1;
-  late VideoPlayerController _controller2;
+  late final VideoPlayerController _controller1;
+  late final VideoPlayerController _controller2;
   bool _isPlayingFirstVideo = true;
 
   @override
@@ -39,8 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
         _controller2.play();
       }
     });
-
-    _controller2 = VideoPlayerController.asset('assets/second_video.mp4');
 
     _controller2.addListener(() async {
       if (_controller2.value.position >= _controller2.value.duration) {

@@ -3,10 +3,9 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   plugins:
     - custom_lint
-  exclude: [
-      lib/**.g.dart,
-    ] #예외처리
-
+  #예외처리
+  exclude: [ lib/**.g.dart] 
+  
   ## ignore(무시)
   ## info(정보)
   ## warning(경고)

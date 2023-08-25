@@ -3,6 +3,7 @@ import 'package:fittrix/repositories/auth_repository.dart';
 import 'package:fittrix/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// 계정 프로바이더
 final authProvider = NotifierProvider<AuthNotifier, AuthStates>(
   () {
     return AuthNotifier();
@@ -27,6 +28,7 @@ class AuthNotifier extends Notifier<AuthStates> {
 
   Future<void> signOut() async {
     try {
+      await ref.read(authRepositoryProvider).signOut();
       state = const AuthStates(status: AuthState.unauthorized, data: null);
     } catch (e) {
       state = const AuthStates(status: AuthState.unauthorized, data: null);
