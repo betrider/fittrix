@@ -61,7 +61,7 @@ class MainScreen extends ConsumerWidget {
   void _onItemTapped(int index, BuildContext context, WidgetRef ref) async {
     switch (index) {
       case 0:
-        final authStatus = ref.read(authProvider).status;
+        final authStatus = ref.read(authNotifierProvider).status;
         if (authStatus == AuthState.authorized) {
           await customShowMenu(
             context: context,

@@ -4,11 +4,11 @@ import 'package:fittrix/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// 계정 프로바이더
-final authProvider = NotifierProvider<AuthNotifier, AuthStates>(
+final authNotifierProvider = NotifierProvider<AuthNotifier, AuthStates>(
   () {
     return AuthNotifier();
   },
-  name: 'authProvider',
+  name: 'authNotifierProvider',
 );
 
 class AuthNotifier extends Notifier<AuthStates> {

@@ -43,7 +43,7 @@ class RouterNotifier extends ChangeNotifier {
 
   RouterNotifier(this._ref) {
     _subscription = _ref.listen<AuthStates>(
-      authProvider,
+      authNotifierProvider,
       (_, __) => notifyListeners(),
     );
 
@@ -53,7 +53,7 @@ class RouterNotifier extends ChangeNotifier {
   }
 
   Future<String?> _redirect(BuildContext context, GoRouterState state) async {
-    var authStatus = _ref.read(authProvider).status;
+    var authStatus = _ref.read(authNotifierProvider).status;
 
     if (authStatus == AuthState.unauthorized && state.fullPath == Routes.recordView) {
       return Routes.auth;

@@ -8,7 +8,7 @@ class AuthScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var status = ref.watch(authProvider).status;
+    var status = ref.watch(authNotifierProvider).status;
     return status == AuthState.unauthorized ? const LoginScreen() : const LogoutScreen();
   }
 }
@@ -61,7 +61,7 @@ class _AuthScreenState extends ConsumerState<LoginScreen> {
                       customShowSnackbar(context: context, message: '아이디를 입력해주세요.');
                       return;
                     }
-                    ref.read(authProvider.notifier).signIn(textEditingController.text);
+                    ref.read(authNotifierProvider.notifier).signIn(textEditingController.text);
                   },
                   child: const Text('로그인'),
                 ),
@@ -87,11 +87,11 @@ class LogoutScreen extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('아이디:${ref.watch(authProvider).data.toString()}'),
+              Text('아이디:${ref.watch(authNotifierProvider).data.toString()}'),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  ref.read(authProvider.notifier).signOut();
+                  ref.read(authNotifierProvider.notifier).signOut();
                 },
                 child: const Text('로그아웃'),
               )

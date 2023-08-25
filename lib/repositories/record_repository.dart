@@ -1,5 +1,7 @@
-import 'package:fittrix/utils/enums.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:fittrix/utils/enums.dart';
 
 /// 운동 기록 Repository Provider
 final recordRepositoryProvider = Provider(
@@ -63,7 +65,7 @@ class FakeRecordRepository implements RecordRepository {
 }
 
 /// 운동 기록
-class Record {
+class Record extends Equatable {
   
   /// 아이디
   late final String id;
@@ -81,4 +83,7 @@ class Record {
   }){
     id = createdAt.toString();
   }
+
+  @override
+  List<Object> get props => [id, fitnessType, createdAt, content];
 }
