@@ -37,7 +37,6 @@ class RecordNotifier extends AsyncNotifier<List<Record>> {
         for (final todo in state.value!)
           if (todo.id != result.id) todo,
       ]);
-
     } catch (err, stack) {
       state = AsyncValue.error(err, stack);
     }
