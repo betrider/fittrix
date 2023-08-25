@@ -64,8 +64,8 @@ class MainScreen extends ConsumerWidget {
           await customShowMenu(
             context: context,
             menuWidth: 150,
-            bottomOffset: kBottomNavigationBarHeight + 16,
-            leftOffset: 16,
+            bottomPositioned: kBottomNavigationBarHeight + 16,
+            leftPositioned: 16,
             child: Container(
               decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
               child: Column(

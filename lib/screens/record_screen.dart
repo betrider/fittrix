@@ -47,7 +47,14 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
                 children: [
                   AspectRatio(
                     aspectRatio: 1,
-                    child: CachedNetworkImage(imageUrl: widget.fitnessType.imageUrl),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.fitnessType.imageUrl,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
@@ -68,19 +75,37 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (textEditingController.text.isEmpty) {
-                          customShowSnackbar(context: context, content: '운동 기록을 입력해주세요.');
+                          customShowSnackbar(
+                            context: context,
+                            message: '운동 기록을 입력해주세요.',
+                          );
                           return;
                         }
 
-                        var record = Record(
+                        var isDone = await customShowDialogOKCancel(
+                          context: context,
+                          title: '등록',
+                          content: '운동 기록을 등록하겠습니까?',
+                        );
+
+                        if (isDone) {
+                          var record = Record(
                             fitnessType: widget.fitnessType,
                             createdAt: DateTime.now(),
-                            content: textEditingController.text);
+                            content: textEditingController.text,
+                          );
 
-                        ref.read(recordNotifierProvider.notifier).addRecord(record).then((value) {
-                          customShowSnackbar(context: context, content: '운동 기록을 등록했습니다.');
-                          context.pop();
-                        });
+                          ref
+                              .read(recordNotifierProvider.notifier)
+                              .addRecord(record)
+                              .then((value) {
+                            customShowSnackbar(
+                              context: context,
+                              message: '운동 기록을 등록했습니다.',
+                            );
+                            context.pop();
+                          });
+                        }
                       },
                       child: const Text('등록하기'),
                     ),

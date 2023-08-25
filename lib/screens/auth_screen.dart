@@ -58,7 +58,7 @@ class _AuthScreenState extends ConsumerState<LoginScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (textEditingController.text.isEmpty) {
-                      customShowSnackbar(context: context, content: '아이디를 입력해주세요.');
+                      customShowSnackbar(context: context, message: '아이디를 입력해주세요.');
                       return;
                     }
                     ref.read(authProvider.notifier).signIn(textEditingController.text);

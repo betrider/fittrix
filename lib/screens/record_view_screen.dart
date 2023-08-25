@@ -26,17 +26,50 @@ class RecordViewScreen extends ConsumerWidget {
                   var record = data[index];
                   return Container(
                     decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(15)
-                    ),
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(15)),
                     padding: const EdgeInsets.all(8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(record.createdAt.toFullDateTimeString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              record.createdAt.toFullDateTimeString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () async {
+                                var isDone = await customShowDialogOKCancel(
+                                  context: context,
+                                  title: '삭제',
+                                  content: '운동 기록을 삭제하겠습니까?',
+                                );
+
+                                if (isDone) {
+                                  ref
+                                      .read(recordNotifierProvider.notifier)
+                                      .deleteRecord(record)
+                                      .then((value) {
+                                    customShowSnackbar(
+                                      context: context,
+                                      message: '운동 기록을 삭제했습니다.',
+                                    );
+                                  });
+                                }
+                              },
+                              icon: const Icon(Icons.delete),
+                            ),
+                          ],
+                        ),
                         const SizedBox(height: 8),
-                        Text('운동 종목 : ${record.fitnessType.toString()}', style: const TextStyle(fontSize: 16)),
+                        Text('운동 종목 : ${record.fitnessType.toString()}',
+                            style: const TextStyle(fontSize: 16)),
                         const SizedBox(height: 8),
                         Text(record.content),
                       ],

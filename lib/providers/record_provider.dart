@@ -25,7 +25,7 @@ class RecordNotifier extends AsyncNotifier<List<Record>> {
     }
   }
 
-  void deleteRecord(Record deleteRecord) async{
+  Future<void> deleteRecord(Record deleteRecord) async{
     state = const AsyncValue.loading();
     try {
       var result = await ref.read(recordRepositoryProvider).deleteRecord(deleteRecord);
