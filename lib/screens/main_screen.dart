@@ -21,6 +21,8 @@ class MainScreen extends ConsumerWidget {
       child: Scaffold(
         body: child,
         bottomNavigationBar: BottomNavigationBar(
+          unselectedItemColor: Colors.grey[600],
+          selectedItemColor: Colors.grey[600],
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.create),
@@ -107,7 +109,7 @@ class MainScreen extends ConsumerWidget {
             ),
           );
         } else {
-          GoRouter.of(context).go(Routes.home);
+          GoRouter.of(context).go(Routes.auth);
         }
         break;
       case 1:

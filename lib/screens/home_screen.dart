@@ -10,23 +10,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final VideoPlayerController _controller1;
-  late final VideoPlayerController _controller2;
+  late VideoPlayerController _controller1;
+  late VideoPlayerController _controller2;
   bool _isPlayingFirstVideo = true;
 
   @override
   void initState() {
     super.initState();
 
-    _controller1 = VideoPlayerController.asset('assets/first_video.mp4')
+    _controller1 = VideoPlayerController.asset('assets/ad_video1.mp4')
       ..initialize().then((_) {
         _controller1.play();
-        _controller1.setLooping(true);
-      });
-
-    _controller2 = VideoPlayerController.asset('assets/second_video.mp4')
-      ..initialize().then((_) {
-        _controller2.setLooping(true);
       });
 
     _controller1.addListener(() async {
@@ -36,18 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
           _isPlayingFirstVideo = false;
         });
         _controller1.pause();
-        _controller2.play();
-      }
-    });
-
-    _controller2.addListener(() async {
-      if (_controller2.value.position >= _controller2.value.duration) {
-        // 두 번째 영상이 종료되었을 때
-        setState(() {
-          _isPlayingFirstVideo = true;
-        });
-        _controller2.pause();
-        _controller1.play();
+        _controller2 = VideoPlayerController.asset('assets/ad_video2.mp4')
+          ..initialize().then((_) {
+            _controller2.play();
+          });
       }
     });
   }
@@ -65,7 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: AspectRatio(
           aspectRatio: 1,
-          child: _isPlayingFirstVideo ? VideoPlayer(_controller1) : VideoPlayer(_controller2),
+          child: _isPlayingFirstVideo
+              ? VideoPlayer(_controller1)
+              : VideoPlayer(_controller2),
         ),
       ),
     );
