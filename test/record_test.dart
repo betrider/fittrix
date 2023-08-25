@@ -39,23 +39,23 @@ void main() {
       expect(true, true);
     });
     test('addRecord', () async{
-      var oldRecords = await ref.read(recordNotifierProvider.future);
+      var oldRecords = await ref.read(recordAsyncNotifierProvider.future);
       
       var record = Record(fitnessType: FitnessType.legRaise, createdAt: DateTime.now(), content: 'content6');
-      ref.read(recordNotifierProvider.notifier).addRecord(record);
+      ref.read(recordAsyncNotifierProvider.notifier).addRecord(record);
 
-      var newRecords = await ref.read(recordNotifierProvider.future);
+      var newRecords = await ref.read(recordAsyncNotifierProvider.future);
 
       expect(oldRecords.length , newRecords.length - 1);
     });
 
     test('deleteRecord', () async{
-      var oldRecords = await ref.read(recordNotifierProvider.future);
+      var oldRecords = await ref.read(recordAsyncNotifierProvider.future);
       
       var record = oldRecords[2];
-      ref.read(recordNotifierProvider.notifier).deleteRecord(record);
+      ref.read(recordAsyncNotifierProvider.notifier).deleteRecord(record);
 
-      var newRecords = await ref.read(recordNotifierProvider.future);
+      var newRecords = await ref.read(recordAsyncNotifierProvider.future);
 
       expect(oldRecords.length - 1 , newRecords.length);
     });

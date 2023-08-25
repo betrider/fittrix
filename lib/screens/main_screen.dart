@@ -1,4 +1,4 @@
-import 'package:fittrix/providers/auth_provider.dart';
+import 'package:fittrix/providers/auth_notifier_provider.dart';
 import 'package:fittrix/route.dart';
 import 'package:fittrix/utils/utils.dart';
 import 'package:flutter/material.dart';

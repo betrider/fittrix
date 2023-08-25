@@ -1,4 +1,4 @@
-import 'package:fittrix/providers/record_provider.dart';
+import 'package:fittrix/providers/record_async_notifier_provider.dart';
 import 'package:fittrix/repositories/record_repository.dart';
 import 'package:fittrix/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ class RecordViewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var result = ref.watch(recordNotifierProvider);
+    var result = ref.watch(recordAsyncNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('운동 기록 보기'),
@@ -35,7 +35,7 @@ class RecordViewScreen extends ConsumerWidget {
             error: (error, stackTrace) {
               return CustomErrorWidget(
                 onPressed: () {
-                  ref.invalidate(recordNotifierProvider);
+                  ref.invalidate(recordAsyncNotifierProvider);
                 },
               );
             },
@@ -97,7 +97,7 @@ class RecordItem extends ConsumerWidget {
 
                     if (isDone) {
                       ref
-                          .read(recordNotifierProvider.notifier)
+                          .read(recordAsyncNotifierProvider.notifier)
                           .deleteRecord(record)
                           .then((value) {
                         customShowSnackbar(

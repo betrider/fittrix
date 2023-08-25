@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fittrix/providers/record_provider.dart';
+import 'package:fittrix/providers/record_async_notifier_provider.dart';
 import 'package:fittrix/repositories/record_repository.dart';
 import 'package:fittrix/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +96,7 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
                           );
 
                           ref
-                              .read(recordNotifierProvider.notifier)
+                              .read(recordAsyncNotifierProvider.notifier)
                               .addRecord(record)
                               .then((value) {
                             customShowSnackbar(

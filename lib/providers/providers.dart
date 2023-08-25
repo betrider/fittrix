@@ -1,2 +1,2 @@
-export 'auth_provider.dart';
-export 'record_provider.dart';
+export 'auth_notifier_provider.dart';
+export 'record_async_notifier_provider.dart';
