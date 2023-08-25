@@ -23,6 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
         _controller1.play();
       });
 
+    _controller2 = VideoPlayerController.asset('assets/ad_video2.mp4')
+      ..initialize();
+
     _controller1.addListener(() async {
       if (_controller1.value.position >= _controller1.value.duration) {
         // 첫 번째 영상이 종료되었을 때
@@ -30,10 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _isPlayingFirstVideo = false;
         });
         _controller1.pause();
-        _controller2 = VideoPlayerController.asset('assets/ad_video2.mp4')
-          ..initialize().then((_) {
-            _controller2.play();
-          });
+        _controller2.play();
       }
     });
   }
