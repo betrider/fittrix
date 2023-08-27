@@ -26,6 +26,12 @@ enum FitnessType{
     return koreanName;
   }
 
+  /// enum.name을 enum으로 변환하는 함수 
+  /// 
+  /// ```dart
+  /// FitnessType.strToEnum('lunge') -> FitnessType.lunge
+  /// ```
+  /// 
   static FitnessType strToEnum(String str) {
     return FitnessType.values.byName(str);
   }
